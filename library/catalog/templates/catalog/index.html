@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <p>You are logged in</p>
+        <p>Welcome {{user.get_username}}</p>
+        <h1>Home Page</h1>
+        <h2>Status</h2>
+        <ul>
+            <li>Total Books: {{num_books}}</li>
+            <li>Available Instances: {{num_instances_available}}</li>
+        </ul>
+        <!-- logout is a reservered keyword. The ?next helps to navigate to the page after you do login or logout-->
+        <a href="{% url 'logout' %}?next={{request.path}}">click here to logout</a>
+        <!-- If remove next, then it goes to standard logged_out.html page-->
+        <a href="{% url 'logout' %}">Permanent logout</a>
+    {% else %}
+        <p>Please login to view the contents!!</p>
+        <a href="{% url 'login' %}?next={{request.path}}">click here to login</a>
+    {% endif %}
+    
+</body>
+</html>

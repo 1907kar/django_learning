@@ -1,0 +1,56 @@
+How to do redirect from main library/urls.py?
+    Normally it would be the page, that says admin/, catalog/
+    Instead we can redirect from home page to any page as soon as we hit the home page
+    This is done by doing following ways:
+        from django.views.generic import RedirectView
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('catalog/', include('catalog.urls')),   
+            # The url needs to be provided as url path
+            path('', RedirectView.as_view(url="catalog/"))
+        ]
+
+How to add success_url from model?
+    Using get_absolute_url we can do it.
+    def get_absolute_url(self):
+        return reverse('book_detail', kwargs={"pk": self.pk})
+    Also not do not add app_name in the urls.py page when using it in models
+
+How to add user authentication page?
+    From django admin create group
+    Add following in the home urls.py file.
+        path('accounts/', include('django.contrib.auth.urls'))
+    Adding above creates respective login related urls, views but doesnt create template.
+    We need to add one at site level i.e at manage.py level and it need to be called as "registration"
+    Add the register the site level templates at setttings.py file
+    Now add "login.html" and it should be exactly as is. These are reservered name for templates
+    Inside login we need to perform following actions
+        CHECK ERRORS
+
+        IS USER IS AUTHENTICATED ? IF not
+            LOGIN-FORM
+        else
+            User logged-in but no access to view the page
+        please refer login.html to see how it is implemented
+
+    Add LOGIN_REDIRECT_URL in settings page to direct once the loggin happens successfully
+    
+How to restrict page if user is not logged in?
+    One way using  {% if user.is_authenticated %}
+        And create logout page/navigations based on below
+            Create "logged_out.html". This is is a reservered name for logout html should be same as is
+            next={{request.path}} helps to navigate to current page
+
+    The other way using views:
+        For function based views we can use decorators as like below:
+            Using decorators, we can restrict the views
+            Using login_required decorators we can restric the view
+                from django.contrib.auth.decorators import login_required
+        For class based views we can use mixins
+
+How to create a signup form?
+    Using UserCreationForm inbuilt class
+          
+
+
+    

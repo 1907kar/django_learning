@@ -1,0 +1,15 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- The contents is shown from model_list, so here the  model is bookinstance_list (all in small)-->
+    <h1>Welcome to profile page</h1>
+    <h2>You have checked out following books</h2>
+    {% for book in bookinstance_list %}
+        <p>{{book}}</p>
+    {% endfor %}
+</body>
+</html>
